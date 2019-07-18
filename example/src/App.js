@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 
-import ExampleComponent from 'cpn-tabler'
+import CpnTabler from 'cpn-tabler';
 
 export default class App extends Component {
-  render () {
+  render() {
+
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        <CpnTabler
+          isLoading={true}
+          errorMessage={null}
+          configCols={[
+            { label: 'ID', key: 'id' }
+          ]}
+          data={[]}
+        />
       </div>
     )
   }

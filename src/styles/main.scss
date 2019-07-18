@@ -1,0 +1,954 @@
+// Variables
+$white: #fff;
+$light: #dde2e4;
+$red: #d32f2f;
+$dark: #546e7a;
+$grey: #989898;
+$blue: #1f98e2;
+$green: #14ad0d;
+$yellow: #f9bc1a;
+$orange: #ffb236;
+$mainColor: $red;
+
+$off-dark: rgba($dark, 0.2);
+$off-red: rgba($red, 0.2);
+$off-grey: rgba($grey, 0.2);
+$off-white: rgba($white, 0.2);
+$off-mainColor: rgba($mainColor, 0.2);
+
+$borderRadius: 3px;
+$boxShadow: 0px 2px 4px
+  rgba(
+    $color: $grey,
+    $alpha: 0.4
+  );
+
+// Z-index
+$zIndexSidebar: 99;
+$zIndexHeader: 100;
+$zIndexAlertsList: 101;
+$zIndexListSuggests: 102;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+// Minxin
+@mixin btnFocus($color) {
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba($color: $color, $alpha: 1);
+  }
+}
+
+@mixin btnHover($color) {
+  &:hover {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba($color: $color, $alpha: 1);
+  }
+}
+
+@mixin mainBorder {
+  border: 1px solid rgba($color: $dark, $alpha: 0.15);
+}
+
+// ============================ CPN TABLE STYLE STYLE ================================
+.cpn-table {
+  th,
+  td {
+    &.cpn-table--col-select-box {
+      width: 50px;
+      text-align: center;
+    }
+  }
+
+  // table {
+  //   margin-bottom: 15px;
+  // }
+
+  // ============================ TR ROW META STYLE ================================
+  .cpn-table--row-meta {
+    background: none !important;
+    user-select: none;
+
+    &:hover {
+      background: none;
+    }
+
+    td {
+      background: none !important;
+    }
+  }
+  // ============================ End TR ROW META STYLE ============================
+
+  // ============================ CPN G STYLE ================================
+  .cpn-table--cpn-paging {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+
+    .total {
+      color: $grey;
+      font-weight: 400;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+
+      .prev,
+      .next {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 32px;
+        width: 32px;
+        cursor: pointer;
+        transition: 0.2s;
+        color: $grey;
+
+        &:hover {
+          border-radius: 50%;
+          background: $grey;
+          color: $white;
+
+          svg {
+            * {
+              fill: $white;
+            }
+          }
+        }
+
+        svg {
+          height: 12px;
+
+          * {
+            fill: $grey;
+          }
+        }
+      }
+
+      p {
+        color: $grey;
+        margin: 0 5px;
+      }
+    }
+  }
+  // ============================ End CPN PAGING STYLE ============================
+
+  // ============================ CPN TABLE TOOLS STYLE ================================
+  .cpn-table--tools {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 42px;
+    padding: 10px;
+    border-bottom: 1px solid $light;
+
+    .buttons-group {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      user-select: none;
+
+      > div {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 38px;
+        padding: 0 15px;
+        border: 1px solid $grey;
+        color: $grey;
+        border-radius: $borderRadius;
+
+        svg {
+          width: 12px;
+          margin-left: 7px;
+          transform-origin: center center;
+          transition: 0.3s;
+        }
+      }
+
+      .set-items-per-page {
+        border: 0;
+        padding: 0;
+
+        select {
+          outline: none;
+          border: 1px solid $grey;
+          background: none;
+          color: $grey;
+          font-weight: 500;
+          font-size: 1em;
+        }
+      }
+
+      .reload-page {
+        @keyframes reloadPageAnimation {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        &.active {
+          cursor: default;
+          background: rgba($color: $light, $alpha: 0.3);
+          border: 0;
+
+          svg {
+            transform-origin: center center;
+            animation: 1.3s ease-in-out reloadPageAnimation infinite;
+          }
+        }
+      }
+
+      .toggle-filter {
+        svg {
+          height: 5px;
+        }
+
+        &.active {
+          svg {
+            transform: rotate(-180deg);
+          }
+        }
+      }
+    }
+
+    .cpn-table--btn {
+      position: relative;
+      display: flex;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 1px solid $dark;
+      border-radius: $borderRadius;
+      margin-left: 5px;
+      cursor: pointer;
+      z-index: 1;
+      user-select: none;
+
+      &.create {
+        background: $mainColor;
+        color: $white;
+        border: 1px solid $mainColor;
+
+        @include btnHover($mainColor);
+      }
+
+      &.dropdown {
+        cursor: default;
+
+        > svg {
+          height: 7px;
+          margin-left: 7px;
+          transform-origin: center center;
+          transform: rotate(180deg);
+          margin-top: -2px;
+          transition: 0.3s;
+        }
+      }
+
+      &:hover {
+        .dropdown-list {
+          display: block;
+        }
+
+        > svg {
+          transform: rotate(0deg);
+        }
+      }
+
+      .dropdown-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        display: none;
+        padding-top: 2px;
+
+        .item {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 30px;
+          margin-bottom: 1px;
+          background: $white;
+          border-radius: $borderRadius;
+          border: 1px solid $dark;
+          box-sizing: border-box;
+          cursor: pointer;
+
+          &:hover {
+            background: $dark;
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+  // ============================ End CPN TABLE TOOLS STYLE ============================
+
+  // ============================ CHECKBOX STYLE ================================
+  .cpn-table--cpn-check-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0.6;
+
+    &.radio {
+      .icon {
+        position: relative;
+        border-radius: 50%;
+        svg {
+          visibility: hidden;
+        }
+      }
+
+      &.checked {
+        .icon {
+          &:before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+
+    &.checked {
+      opacity: 1;
+
+      .icon {
+        background: $green;
+        border-color: $green;
+
+        svg {
+          opacity: 1;
+          * {
+            fill: $white;
+          }
+        }
+      }
+    }
+
+    .icon {
+      height: 18px;
+      width: 18px;
+      border-radius: 3px;
+      border: 1px solid $dark;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+
+      svg {
+        height: 7px !important;
+        opacity: 0;
+        transform: translateX(1px);
+      }
+    }
+
+    .label {
+      margin-left: 5px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+
+  // ============================ End CHECKBOX STYLE ============================
+
+  // ============================ SWITCH STYLE ================================
+  $switchColor: $green;
+
+  @keyframes switchAniGreen {
+    0% {
+      box-shadow: 0px 0px 10px rgba($color: $switchColor, $alpha: 0);
+    }
+    50% {
+      box-shadow: 0px 0px 10px rgba($color: $switchColor, $alpha: 1);
+    }
+    100% {
+      box-shadow: 0px 0px 10px rgba($color: $switchColor, $alpha: 0);
+    }
+  }
+
+  @keyframes switchAniGrey {
+    0% {
+      box-shadow: 0px 0px 10px rgba($color: $dark, $alpha: 0);
+    }
+    50% {
+      box-shadow: 0px 0px 10px rgba($color: $dark, $alpha: 1);
+    }
+    100% {
+      box-shadow: 0px 0px 10px rgba($color: $dark, $alpha: 0);
+    }
+  }
+
+  .cpn-table--switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 25px;
+
+    &.disabled {
+      cursor: default;
+
+      input,
+      .slider {
+        cursor: default !important;
+      }
+    }
+
+    &.loading {
+      cursor: default;
+
+      input,
+      .slider {
+        cursor: default !important;
+      }
+
+      input:checked + .slider {
+        animation: switchAniGreen 1s ease-in-out infinite;
+      }
+
+      input + .slider {
+        animation: switchAniGrey 1s ease-in-out infinite;
+      }
+    }
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    input:checked + .slider {
+      background-color: $switchColor;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 150px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+
+      &:before {
+        position: absolute;
+        content: "";
+        height: 19px;
+        width: 19px;
+        left: 3px;
+        bottom: 3px;
+        background-color: $white;
+        transition: 0.2s;
+      }
+    }
+  }
+  // ============================ End SWITCH STYLE ============================
+
+  // ============================ LOADING ICON STYLE ================================
+  .cpn-table--loading-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade {
+    position: absolute;
+    left: 44.5%;
+    top: 37%;
+    width: 10%;
+    height: 25%;
+    border-radius: 50%/20%;
+    animation: cpn-table--loading-iconBlade 1s linear infinite;
+    animation-play-state: paused;
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(1) {
+    animation-delay: -1.6666666667s;
+    transform: rotate(30deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(2) {
+    animation-delay: -1.5833333333s;
+    transform: rotate(60deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(3) {
+    animation-delay: -1.5s;
+    transform: rotate(90deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(4) {
+    animation-delay: -1.4166666667s;
+    transform: rotate(120deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(5) {
+    animation-delay: -1.3333333333s;
+    transform: rotate(150deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(6) {
+    animation-delay: -1.25s;
+    transform: rotate(180deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(7) {
+    animation-delay: -1.1666666667s;
+    transform: rotate(210deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(8) {
+    animation-delay: -1.0833333333s;
+    transform: rotate(240deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(9) {
+    animation-delay: -1s;
+    transform: rotate(270deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(10) {
+    animation-delay: -0.9166666667s;
+    transform: rotate(300deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(11) {
+    animation-delay: -0.8333333333s;
+    transform: rotate(330deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon .cpn-table--loading-icon__blade:nth-child(12) {
+    animation-delay: -0.75s;
+    transform: rotate(360deg) translate(0, -150%);
+  }
+  .cpn-table--loading-icon.cpn-table--loading-icon--animating .cpn-table--loading-icon__blade {
+    animation-play-state: running;
+    will-change: opacity;
+  }
+  .cpn-table--loading-icon.cpn-table--loading-icon--white .cpn-table--loading-icon__blade {
+    background-color: white;
+  }
+  .cpn-table--loading-icon.cpn-table--loading-icon--gray .cpn-table--loading-icon__blade {
+    background-color: $dark;
+  }
+  .cpn-table--loading-icon.cpn-table--loading-icon--large {
+    width: 35px;
+    height: 35px;
+  }
+  .cpn-table--loading-icon.cpn-table--loading-icon--large .cpn-table--loading-icon__blade {
+    width: 8.5714285714%;
+    height: 25.7142857143%;
+    border-radius: 50%/16.67%;
+  }
+
+  @keyframes cpn-table--loading-iconBlade {
+    0% {
+      opacity: 0.85;
+    }
+    50% {
+      opacity: 0.25;
+    }
+    100% {
+      opacity: 0.25;
+    }
+  }
+  // ============================ End LOADING ICON STYLE ============================
+
+  // ============================ CPN LOADING STYLE ================================
+  .cpn-table--cpn-loading {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    color: $dark;
+
+    .cpn-table--loading-icon {
+      margin-right: 7px;
+    }
+  }
+  // ============================ End CPN LOADING STYLE ============================
+
+  // ============================ CPN ERROR MESSAGE STYLE ================================
+  .cpn-table--cpn-error-message {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    color: $red;
+  }
+  // ============================ End CPN ERROR MESSAGE STYLE ============================
+
+  // ============================ CPN EMPTY DATA STYLE ================================
+  .cpn-table--cpn-empty-data {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    color: $dark;
+  }
+  // ============================ End CPN EMPTY DATA STYLE ============================
+
+  // ============================ FILTER ITEM STYLE ================================
+  tr.row-filters {
+    th {
+      padding: 4px 1px !important;
+    }
+  }
+  // ============================ End FILTER ITEM STYLE ============================
+
+  // ============================ INPUT STYLE STYLE ================================
+  .cpn-table--text-input {
+    position: relative;
+
+    input {
+      display: inline-block;
+      height: 38px;
+      border: 1px solid rgba($color: $dark, $alpha: 0.3);
+      padding: 0 7px;
+      border-radius: $borderRadius;
+      width: 100%;
+      outline: none;
+      font-size: 1em;
+      color: $dark;
+      font-weight: 500;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+  }
+
+  .cpn-table--text-input---btn-clear {
+    position: absolute;
+    top: 50%;
+    right: 7px;
+    transform: translateY(-50%);
+    color: $grey;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    line-height: 20px;
+
+    &:hover {
+      background: $dark;
+      color: $white;
+    }
+  }
+  // ============================ End INPUT STYLE STYLE ============================
+
+  // ============================ FORMAT CSS STYLE ================================
+  /* Change Autocomplete styles in Chrome*/
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  button {
+    background: none;
+    border: none;
+    font-weight: 500;
+    font-size: 1rem;
+    user-select: none;
+    outline: none;
+  }
+
+  // ============================ End FORMAT CSS STYLE ============================
+
+  // ============================ TIME RANGE STYLE ================================
+  .cpn-table--time-range {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .btn-clear {
+      position: absolute;
+      top: 50%;
+      right: 7px;
+      transform: translateY(-50%);
+      color: $grey;
+      height: 20px;
+      width: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      line-height: 20px;
+
+      &:hover {
+        background: $dark;
+        color: $white;
+      }
+    }
+
+    input {
+      height: 38px !important;
+      box-sizing: border-box;
+      border: 1px solid rgba($color: $dark, $alpha: 0.3);
+      padding: 0 7px;
+      border-radius: $borderRadius;
+      width: 100%;
+      outline: none;
+      font-size: 1em;
+      color: $dark;
+      font-weight: 500;
+      padding-right: 20px;
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    .dash {
+      padding: 0 7px;
+      font-weight: 500;
+    }
+
+    label {
+      display: flex;
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+  // ============================ End TIME RANGE STYLE ============================
+
+  // ============================ SORT STYLE ================================
+  th.cpn-table--has-sort {
+    cursor: pointer;
+
+    &.increase {
+      .cpn-table--sort-icon {
+        svg {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    &.descrease {
+      .cpn-table--sort-icon {
+        svg {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  .cpn-table--sort-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+
+    &.has-sort {
+      svg {
+        height: 10px;
+      }
+    }
+
+    svg {
+      height: 6px;
+      transform-origin: center center;
+      transition: transform 0.3s;
+
+      * {
+        fill: $grey;
+      }
+    }
+  }
+  // ============================ End SORT STYLE ============================
+
+  // ============================ CPN SEARCH BOX STYLE ================================
+  .cpn-table--cpn-search-box {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    height: 38px;
+
+    &.loading {
+      .icon-loading {
+        opacity: 1;
+      }
+    }
+
+    > svg {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      height: 14px;
+
+      * {
+        fill: $grey;
+      }
+    }
+
+    .icon-loading {
+      opacity: 0;
+    }
+
+    input {
+      height: 38px;
+      padding: 0 20px;
+      font-size: 1em;
+      color: $grey;
+      border: 0;
+      outline: none;
+      border-radius: $borderRadius;
+      background: none;
+      transition: 0.3s;
+      min-width: 450px;
+      padding-left: 38px;
+
+      &::placeholder {
+        color: rgba($color: $grey, $alpha: 1);
+      }
+
+      &:focus {
+        background: $white;
+        border: 1px solid $light;
+
+        &::placeholder {
+          color: rgba($color: $grey, $alpha: 0.3);
+        }
+      }
+    }
+
+    .list-suggests {
+      position: absolute;
+      top: calc(100%);
+      left: 0;
+      width: 100%;
+      height: max-content;
+      background: $white;
+      z-index: $zIndexListSuggests;
+      border-radius: $borderRadius;
+      max-height: 50vh;
+      overflow-y: auto;
+
+      .item {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        padding: 0 10px;
+        border: 1px solid $light;
+        user-select: none;
+
+        &.selected,
+        &:hover {
+          background: rgba($color: $blue, $alpha: 0.1);
+        }
+      }
+    }
+  }
+  // ============================ End CPN SEARCH BOX STYLE ============================
+
+  // ============================ LOADING ELLIPSIS STYLE ================================
+  .loading-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-left: -40px;
+  }
+  .loading-ellipsis div {
+    position: absolute;
+    top: 19px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: $dark;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .loading-ellipsis div:nth-child(1) {
+    left: 3px;
+    animation: loading-ellipsis1 0.6s infinite;
+  }
+  .loading-ellipsis div:nth-child(2) {
+    left: 3px;
+    animation: loading-ellipsis2 0.6s infinite;
+  }
+  .loading-ellipsis div:nth-child(3) {
+    left: 13px;
+    animation: loading-ellipsis2 0.6s infinite;
+  }
+  .loading-ellipsis div:nth-child(4) {
+    left: 22px;
+    animation: loading-ellipsis3 0.6s infinite;
+  }
+  @keyframes loading-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes loading-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes loading-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(10px, 0);
+    }
+  }
+
+  // ============================ End LOADING ELLIPSIS STYLE ============================
+}
+// ============================ End CPN style STYLE ============================

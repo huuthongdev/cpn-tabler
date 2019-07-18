@@ -1,0 +1,117 @@
+// Variables
+$white: #fff;
+$light: #dde2e4;
+$red: #d32f2f;
+$dark: #546e7a;
+$grey: #989898;
+$blue: #1f98e2;
+$green: #14ad0d;
+$yellow: #f9bc1a;
+$orange: #ffb236;
+$off-blue: rgba($blue, 0.2);
+$off-white: rgba($white, 0.2);
+$off-dark: rgba($dark, 0.2);
+$off-red: rgba($red, 0.2);
+$off-grey: rgba($grey, 0.2);
+$mainColor: $red;
+
+$borderRadius: 5px;
+$boxShadow: 0px 2px 4px
+  rgba(
+    $color: $grey,
+    $alpha: 0.4
+  );
+
+$zIndexHeader: 100;
+$zIndexSidebar: 101;
+$zIndexAlertsList: 710;
+$zIndexPopupSelectImage: 102;
+$zIndexCpnGallery: 202;
+$zIndexPopup: 202;
+
+@mixin btnFocus($color) {
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba($color: $color, $alpha: 1);
+  }
+}
+
+@mixin btnHover($color) {
+  &:hover {
+    outline: none;
+    box-shadow: 0px 0px 10px rgba($color: $color, $alpha: 1);
+  }
+}
+
+// body {
+//   background: $light;
+//   padding: 50px;
+//   font-family: "Roboto", sans-serif;
+//   font-size: 14px;
+//   color: $dark;
+// }
+
+// ============================ CPN TABLE STYLE ================================
+.cpn-table {
+  width: 100%;
+  max-width: 100%;
+  font-weight: 500;
+  border-radius: $borderRadius;
+  border: 1px solid $light;
+  overflow: hidden;
+  background: $white;
+
+  img {
+    max-width: 100%;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+      padding: 7px;
+      border: 1px solid $light;
+    }
+
+    tr {
+      td:first-child,
+      th:first-child {
+        border-left: 0;
+      }
+
+      td:last-child,
+      th:last-child {
+        border-right: 0;
+      }
+    }
+
+    thead {
+      text-align: left;
+      user-select: none;
+
+      th {
+        font-weight: 400;
+        color: $grey;
+        font-size: 0.9em;
+      }
+    }
+
+    tbody {
+      tr {
+        background: $white;
+        font-weight: 500;
+
+        &:hover {
+          background: #fdf5f5 !important;
+        }
+
+        &:nth-child(odd) {
+          background: rgba($color: $light, $alpha: 0.15);
+        }
+      }
+    }
+  }
+}
+// ============================ End CPN TABLE STYLE ============================
